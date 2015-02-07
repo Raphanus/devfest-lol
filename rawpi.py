@@ -384,4 +384,3 @@ def get_teams(region, teamIds):
 
 
 
-print get_champions('na', 'false').json()
