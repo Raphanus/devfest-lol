@@ -19,8 +19,26 @@
 })
 console.log('test1');
 
+$(function() {
+    $('asdfbutton').click(function() {
+        var summ = $('#summonerInput').val();
+        $.ajax({
+            url: '/lookup',
+            type: 'GET',
+            data: $('form').serialize(),
+            success: function(response) {
+                console.log(response)
+                
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        });
+    });
+});
+    /*
 $.ajax({
-        url: "data.py",
+        url: "/lookup",
         type: "POST",
         data: {},
         success: function(response){
@@ -28,8 +46,8 @@ $.ajax({
         }
 })
     .fail(function() {
-        console.log(url);
+        console.log("fail");
     })
     .always(function() {
     });
-
+*/
