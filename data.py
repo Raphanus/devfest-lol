@@ -1,5 +1,6 @@
 from rawpi import *
 from pprint import pprint
+import json
 
 def rec_gms_to_kda(region,summoner):
     """
@@ -14,7 +15,7 @@ def rec_gms_to_kda(region,summoner):
                 stats['numDeaths'],
                 stats['assists']))
 
-    return kdas
+    return json.dumps(kdas)
 
 
 if __name__ == "__main__":

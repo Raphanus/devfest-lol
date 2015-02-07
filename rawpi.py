@@ -54,9 +54,7 @@ def get_champion(region, championId):
 # GAME-v1.3
 
 def get_recent_games(region, summonerId):
-    """
-    Get recent games by summoner ID.
-    """
+    # WORKS
     try:
         int(summonerId)
     except:
