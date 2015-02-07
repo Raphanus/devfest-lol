@@ -292,11 +292,16 @@ def get_ranked_stats(region, summonerId, season=""):
     """
     Get ranked stats by summoner ID.
     """
-    return requests.get(
-        (REGION_ENDPOINT + "v1.3/stats/by-summoner/{1}/ranked?"
-         "api_key={2}&season={3}").
-        format(region, summonerId, KEY, season))
-
+    try:
+        summonerId = int(summonerId)
+    except:
+        summonerId = get_summonerid_by_name(region,summonerId)
+    target = REGION_ENDPOINT + "v1.3/stats/by-summoner/{1}/ranked?api_key={2}&season={3}".format(region, summonerId, KEY, season)
+    try:
+        print(target)
+        return requests.get(target)
+    except:
+        print(target)
 
 def get_stats(region, summonerId, season=""):
     """
