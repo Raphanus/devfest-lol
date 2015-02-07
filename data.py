@@ -1,5 +1,6 @@
 from rawpi import *
 from pprint import pprint
+import pdb
 import json
 
 def rec_gms_to_kda(summoner, region="na"):
@@ -11,15 +12,25 @@ def rec_gms_to_kda(summoner, region="na"):
     target = js['games']
     for game in target:
         stats = game['stats']
-        kdas.append((stats['championsKilled'],
-                stats['numDeaths'],
-                stats['assists']))
+        if 'championsKilled' in stats:
+            kills = stats['championsKilled']
+        else:
+            kills = 0
+        if 'numDeaths' in stats:
+            deaths = stats['numDeaths']
+        else:
+            deaths = 0
+        if 'assists' in stats:
+            assists = stats['assists']
+        else:
+            assists = 0
+        kdas.append([kills, deaths, assists])
 
     return json.dumps(kdas)
 
 def ranked_stats(summoner, region="NA", season="SEASON2014"):
     js = get_ranked_stats(region, summoner, season)
-    return js 
+    return js
 
 def get_challengers(region="NA", queuetype="RANKED_SOLO_5x5"):
     """

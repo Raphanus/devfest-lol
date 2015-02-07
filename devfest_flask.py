@@ -24,7 +24,8 @@ def lookup():
     #if a get request is received, parse out the summoner from the url and return the record
     if request.method == 'GET':
         summ = request.args.get('summoner')
-        return rec_gms_to_kda(summ)
+        records = rec_gms_to_kda(summ)
+        return render_template('lookup.html', records=records)
     #args = parser.parse_args()
     #print args['summoner']
     #return rec_gms_to_kda(request.form['summoner'])
