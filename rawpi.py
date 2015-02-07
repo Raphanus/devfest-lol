@@ -19,7 +19,10 @@ REGION = 'na'
 GLOBAL_ENDPOINT = "https://global.api.pvp.net/api/lol/static-data/{0}/".format(REGION)
 REGION_ENDPOINT = "https://{0}.api.pvp.net/api/lol/{0}/".format(REGION)
 
-
+def get_summonerid_by_name(region, summonerName):
+    temp_summ = get_summoner_by_name(region, summonerName).json()
+    fields = temp_summ[summonerName]
+    return fields['id']
 
 def set_api_key(key):
     global KEY
@@ -50,11 +53,14 @@ def get_champion(region, championId):
 
 # GAME-v1.3
 
-
 def get_recent_games(region, summonerId):
     """
     Get recent games by summoner ID.
     """
+    try:
+        int(summonerId)
+    except:
+        summonerId = get_summonerid_by_name(region,summonerId)
     return requests.get(
         (REGION_ENDPOINT + "v1.3/game/by-summoner/{1}/recent?api_key={2}").
         format(region, summonerId, KEY))
@@ -316,7 +322,6 @@ def get_summoner_by_name(region, summonerNames):
         format(region, summonerNames, KEY))
 
 def get_summonerid_by_name(region, summonerName):
-
     temp_summ = get_summoner_by_name(region, summonerName).json()
     fields = temp_summ[summonerName]
     return fields['id']
@@ -384,4 +389,3 @@ def get_teams(region, teamIds):
 
 
 
-print get_champions('na', 'false').json()
